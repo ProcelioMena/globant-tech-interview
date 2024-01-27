@@ -8,7 +8,7 @@ NC := "\e[0m"
 INFO := @bash -c 'printf $(YELLOW); echo "=> $$1"; printf $(NC)' MESSAGE
 WARNING := @bash -c 'printf $(RED); echo "WARNING: $$1"; printf $(NC)' MESSAGE
 
-.PHONY: unit-test int-test lint dev stop install
+.PHONY: unit-test lint dev stop install
 
 install:
 	${INFO} "Installing requirements for globant-tech-interview"
@@ -25,12 +25,13 @@ unit-test:
 
 stop:
 	${INFO} "Resetting containers..."
-	ifeq $ shell docker ps -a --format '{{.Names}}' | grep $(APP_CONT)
-		docker stop $(APP_CONT)
-		docker rm $(APP_CONT)
-	endif
+	if docker ps -a --format '{{.Names}}' | grep -q $(APP_CONT); then\
+		docker stop $(APP_CONT); \
+		docker rm $(APP_CONT); \
+	fi
 
 dev: stop
 	${INFO} "Spinning up  API locally..."
-	@ docker-compose $(COMPOSE_FILE) build
-	@ docker-compose $(COMPOSE_FILE) up
+	python3 src/app.py
+#	@ docker-compose $(COMPOSE_FILE) build
+	#@ docker-compose $(COMPOSE_FILE) up

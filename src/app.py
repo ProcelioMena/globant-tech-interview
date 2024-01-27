@@ -2,8 +2,9 @@ from fastapi import FastAPI, APIRouter
 from logging import Logger
 from pathlib import Path
 
-router = APIRouter()
+from processors.data_processor import DataProcessor
 
+router = APIRouter()
 logger = Logger("app")
 
 
@@ -13,12 +14,19 @@ def root() -> dict:
     return {"Globant Service": "Globant service is up and running"}
 
 
+@router.get("/process", status_code=200)
+def process(table: str) -> dict:
+    logger.info("processing data")
+    operation_summary = DataProcessor(table).process()
+    return {"rows_inserted": operation_summary["rows_inserted"], "rows_failed": operation_summary["rows_failed"],
+            "errors": operation_summary["errors"]}
+
+
 app = FastAPI(title="Globant service", openapi_url="/openapi.json")
 app.include_router(router)
 
 logger.info("Globant API successfully booted...")
 
-print(Path(__file__).stem)
 
 if __name__ == "__main__":
     import uvicorn
