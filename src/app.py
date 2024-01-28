@@ -1,7 +1,9 @@
 from fastapi import FastAPI, APIRouter
 from logging import Logger
 from pathlib import Path
+from typing import Literal
 
+from constants import metrics
 from processors.data_processor import DataProcessor
 from utils.bigquery_handler import TableHandler, QueryHandler
 
@@ -40,6 +42,12 @@ def employees_per_quarter() -> str:
 def departments_above_mean() -> str:
     logger.info("departments_above_mean")
     return QueryHandler("departments_above_mean").execute()
+
+
+@router.get("/reports", status_code=200)
+def reports(metric: Literal["employees_per_quarter", "departments_above_mean"]) -> str:
+    logger.info("reports")
+    return f"Reports are exposed here: {metrics[metric]}"
 
 
 app = FastAPI(title="Globant service", openapi_url="/openapi.json")

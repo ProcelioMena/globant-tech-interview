@@ -18,3 +18,8 @@ table_data = {
         "columns": ["id", "name", "datetime", "job_id", "department_id"]
     }
 }
+
+metrics = {
+    "employees_per_quarter": "https://lookerstudio.google.com/reporting/585edf33-942e-422f-8355-a5d6060ac7af",
+    "departments_above_mean": "https://lookerstudio.google.com/reporting/2df18dfa-f253-4f76-856e-d6daff05723f"
+}
