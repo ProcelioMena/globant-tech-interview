@@ -40,7 +40,6 @@ class QueryMixin:
             d.department, j.job;
         """
 
-
     def departments_above_mean(self) -> str:
         """
         Query to get list of ides, name and number of employees hired of each department that hired more employees than

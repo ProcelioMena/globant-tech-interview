@@ -1,4 +1,4 @@
-from google.cloud.bigquery import SchemaField, enums
+from google.cloud.bigquery import enums
 
 
 BQ_TYPES = enums.SqlTypeNames

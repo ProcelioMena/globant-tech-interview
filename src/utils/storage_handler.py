@@ -35,4 +35,3 @@ class StorageHandler():
             data = blob.download_as_string()
             raw_table = read_csv(BytesIO(data), names=columns, header=None)
             return raw_table, None
-

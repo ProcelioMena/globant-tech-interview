@@ -1,6 +1,4 @@
 import logging
-from pandas import DataFrame
-from typing import Union
 
 from processors.data_checker import DataChecker
 from utils.bigquery_handler import TableHandler
@@ -23,7 +21,6 @@ class DataProcessor(DataChecker):
         else:
             self.pd_schema = table_data[self.table]["pd_schema"]
             self.columns = table_data[self.table]["columns"]
-            
 
     def process(self) -> dict:
         logger.info("processing data")

@@ -1,5 +1,5 @@
 import logging
-from google.cloud import bigquery, storage
+from google.cloud import bigquery
 from pandas import DataFrame
 
 from utils.query_mixin import QueryMixin

@@ -10,7 +10,6 @@ class DataChecker:
     def __init__(self, table: str):
         self.table = table
         self.rows_failed = 0
-        
 
     def check(self, raw_data: DataFrame, schema: dict) -> DataFrame:
         logger.info("check")
