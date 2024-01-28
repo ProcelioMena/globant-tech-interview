@@ -3,6 +3,7 @@ from logging import Logger
 from pathlib import Path
 
 from processors.data_processor import DataProcessor
+from utils.bigquery_handler import BigQueryHandler
 
 router = APIRouter()
 logger = Logger("app")
@@ -17,9 +18,16 @@ def root() -> dict:
 @router.get("/process", status_code=200)
 def process(table: str) -> dict:
     logger.info("processing data")
-    operation_summary = DataProcessor(table).process()
-    return {"rows_inserted": operation_summary["rows_inserted"], "rows_failed": operation_summary["rows_failed"],
-            "errors": operation_summary["errors"]}
+    summary = DataProcessor(table).process()
+    return {"rows_inserted": summary["rows_inserted"], "rows_failed": summary["rows_failed"],
+            "errors": summary["errors"]}
+
+
+@router.get("/restore", status_code=200)
+def backup(table: str) -> str:
+    logger.info("restor back up data")
+    sumamry = BigQueryHandler(table).restore()
+    return sumamry
 
 
 app = FastAPI(title="Globant service", openapi_url="/openapi.json")

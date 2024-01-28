@@ -3,6 +3,8 @@ from io import BytesIO
 from pandas import DataFrame, read_csv
 from typing import Optional, Union
 
+from typing import List
+
 
 class StorageHandler():
     """
@@ -19,7 +21,7 @@ class StorageHandler():
         self.bucket_name = "globant-tech-interview"
         self.raw_prefix = "raw/"
 
-    def get_csv(self, table) -> Union[Optional[DataFrame], str]:
+    def get_csv(self, table: str, columns: List[str]) -> Union[Optional[DataFrame], str]:
         """
         Get csv from given table
         :param table: table to load
@@ -31,7 +33,7 @@ class StorageHandler():
         else:
             blob = blobs[-1]
             data = blob.download_as_string()
-            raw_table = read_csv(BytesIO(data))
+            raw_table = read_csv(BytesIO(data), names=columns, header=None)
             print(raw_table)
             return raw_table, None
 

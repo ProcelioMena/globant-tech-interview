@@ -13,7 +13,6 @@ WARNING := @bash -c 'printf $(RED); echo "WARNING: $$1"; printf $(NC)' MESSAGE
 install:
 	${INFO} "Installing requirements for globant-tech-interview"
 	@ pip3 install -r requirements.txt
-	@ pre-commit install
 
 lint:
 	${INFO} "Running Flake8 on all files"
