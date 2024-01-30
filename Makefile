@@ -18,6 +18,10 @@ lint:
 	${INFO} "Running Flake8 on all files"
 	@ flake8 --config setup.cfg
 
+unit-test:
+	${INFO} "Running unit tests"
+	@ pytest tests/unit/ -c pytest.ini
+
 stop:
 	${INFO} "Resetting containers..."
 	if docker ps -a --format '{{.Names}}' | grep -q $(APP_CONT); then\
