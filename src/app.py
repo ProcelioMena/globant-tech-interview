@@ -19,6 +19,7 @@ def root() -> dict:
 
 @router.get("/process", status_code=200)
 def process(table: str) -> dict:
+    logger.info("process")
     logger.info("processing data")
     summary = DataProcessor(table).process()
     return {"rows_inserted": summary["rows_inserted"], "rows_failed": summary["rows_failed"],
